@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MapsApiServiceService } from '../maps-api-service.service';
 
 @Component({
   selector: 'app-restaurants',
@@ -6,10 +7,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./restaurants.component.css']
 })
 export class RestaurantsComponent implements OnInit {
-
-  constructor() { }
-
+  restaurants;
+  constructor(private restaurantsAPI: MapsApiServiceService) { }
   ngOnInit() {
+    this.restaurantsAPI.getRestaurants().subscribe((data) => {
+      console.log(data);
+      this.restaurants = data['results'];
+    })
   }
 
 }
