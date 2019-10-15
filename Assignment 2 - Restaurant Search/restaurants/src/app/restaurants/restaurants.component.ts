@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, SimpleChanges } from '@angular/core';
 import { RestaurantsApiService } from '../restaurants-api.service';
+import { DataService } from "../data.service";
+
 @Component({
   selector: 'app-restaurants',
   templateUrl: './restaurants.component.html',
@@ -7,13 +9,22 @@ import { RestaurantsApiService } from '../restaurants-api.service';
 })
 export class RestaurantsComponent implements OnInit {
   restaurantsResults;
-  constructor(private restaurantsAPI: RestaurantsApiService) { }
+  message: string;
+
+  constructor(private restaurantsAPI: RestaurantsApiService, private data: DataService) { 
+  }
 
   ngOnInit() {
-    this.restaurantsAPI.getRestaurants().subscribe((data) => {
-      console.log(data);
+    this.data.currentMessage.subscribe(message => this.message = message)
+    this.update(this.message);
+
+    this.data.currentMessage
+    .subscribe((value: string) => this.update(value));  }
+
+  update(query){
+    this.restaurantsAPI.getRestaurants(query).subscribe((data) => {
       this.restaurantsResults = data['results'];
     })
-  }
+    }
 
 }

@@ -7,17 +7,14 @@
     <div class="collapse navbar-collapse" id="navb">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
-          <a class="nav-link" href="javascript:void(0)">Logo Placeholder</a>
+          <a class="navbar-brand" href="#">
+            <img  src="assets/images/logo.jpg" width="50" height="50" alt="logo">
+          </a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" href="javascript:void(0)">Home</a>
-          </li>
       </ul>
-      <form class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="text" placeholder="Search">
-        <button class="btn btn-success my-2 my-sm-0" type="button">Search</button>
-      </form>
+        <input #search name="searchQuery" class="form-control mr-sm-2" type="text" placeholder="Search" (keyup.enter)="newMessage(search.value)">
+        <button class="btn btn-success my-2 my-sm-0" type="button" (click)="newMessage(search.value)">Search</button>
     </div>
   </nav>
-
+  <div *ngIf="status==1"><app-restaurants></app-restaurants></div>
 <router-outlet></router-outlet>
