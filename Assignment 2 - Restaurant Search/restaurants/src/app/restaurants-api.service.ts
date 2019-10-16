@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 
 export class RestaurantsApiService {
-  API_KEY:string = "XXXXXXXXX";
+  API_KEY:string = "XXXXX";
   
   constructor(private httpClient: HttpClient) { }
 

@@ -6,11 +6,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { RestaurantsComponent } from './restaurants/restaurants.component';
 import {HttpClientModule} from '@angular/common/http';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    RestaurantsComponent
+    RestaurantsComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

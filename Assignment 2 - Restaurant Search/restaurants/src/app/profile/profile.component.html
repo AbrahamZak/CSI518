@@ -1,0 +1,12 @@
+  <h3>Restaurant Profile:</h3>
+<div>
+    <div class="card" style = "width: 18rem;">
+        <img src="https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference={{childMessage.photos[0].photo_reference}}&key=XXXXX" class="card-img-top">
+        <div class="card-body">
+        <h5 class = "card-title">{{childMessage.name}}</h5>
+        <p class="card-text"><strong>{{childMessage.rating}} / 5</strong></p>
+        <p class= "card-text">{{childMessage.formatted_address}}</p>
+        </div>
+    </div>
+    </div> 
+    

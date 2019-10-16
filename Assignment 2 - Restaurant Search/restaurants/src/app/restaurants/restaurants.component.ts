@@ -1,6 +1,7 @@
 import { Component, OnInit, SimpleChanges } from '@angular/core';
 import { RestaurantsApiService } from '../restaurants-api.service';
 import { DataService } from "../data.service";
+import { SSL_OP_SSLEAY_080_CLIENT_DH_BUG } from 'constants';
 
 @Component({
   selector: 'app-restaurants',
@@ -9,7 +10,9 @@ import { DataService } from "../data.service";
 })
 export class RestaurantsComponent implements OnInit {
   restaurantsResults;
+  parentMessage;
   message: string;
+  status = 0;
 
   constructor(private restaurantsAPI: RestaurantsApiService, private data: DataService) { 
   }
@@ -25,6 +28,15 @@ export class RestaurantsComponent implements OnInit {
     this.restaurantsAPI.getRestaurants(query).subscribe((data) => {
       this.restaurantsResults = data['results'];
     })
+    this.status = 0;
     }
 
+    onSelect(restaurant){
+      this.parentMessage = restaurant;
+      this.status = 1;
+    }
+
+    goBack(){
+      this.status = 0;
+    }
 }

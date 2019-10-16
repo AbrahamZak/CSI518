@@ -1,6 +1,11 @@
+<button *ngIf="status==1" (click)="goBack()" type="button" class="btn btn-primary">Back</button>
+
+<div *ngIf="status==0">
 <h3>Restaurant Search Results:</h3>
-<div *ngFor="let restaurant of restaurantsResults">
+<div>
     <ul class="list-group">
-            <li class="list-group-item">{{restaurant.name}} - {{restaurant.formatted_address}}</li>
+            <li style="cursor: pointer;" *ngFor="let restaurant of restaurantsResults"  (click)="onSelect(restaurant)" class="list-group-item"><strong>{{restaurant.name}}</strong></li>
     </ul>
     </div> 
+        </div>
+    <app-profile *ngIf="status==1" [childMessage]="parentMessage"></app-profile>
