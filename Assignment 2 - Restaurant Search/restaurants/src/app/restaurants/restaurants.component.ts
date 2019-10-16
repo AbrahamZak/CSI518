@@ -1,7 +1,6 @@
 import { Component, OnInit, SimpleChanges } from '@angular/core';
 import { RestaurantsApiService } from '../restaurants-api.service';
 import { DataService } from "../data.service";
-import { SSL_OP_SSLEAY_080_CLIENT_DH_BUG } from 'constants';
 
 @Component({
   selector: 'app-restaurants',
