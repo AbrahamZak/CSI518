@@ -1,6 +1,4 @@
-import { Component, OnInit, SimpleChanges } from '@angular/core';
-import { RestaurantsApiService } from '../restaurants-api.service';
-import { DataService } from "../data.service";
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-restaurants',
@@ -8,34 +6,38 @@ import { DataService } from "../data.service";
   styleUrls: ['./restaurants.component.css']
 })
 export class RestaurantsComponent implements OnInit {
-  restaurantsResults;
-  parentMessage;
-  message: string;
-  status = 0;
+  @Input() restaurant;
+  @Input() searchValue;
 
-  constructor(private restaurantsAPI: RestaurantsApiService, private data: DataService) { 
-  }
+  constructor() { }
 
   ngOnInit() {
-    this.data.currentMessage.subscribe(message => this.message = message)
-    this.update(this.message);
-
-    this.data.currentMessage
-    .subscribe((value: string) => this.update(value));  }
-
-  update(query){
-    this.restaurantsAPI.getRestaurants(query).subscribe((data) => {
-      this.restaurantsResults = data['results'];
-    })
-    this.status = 0;
+    this.onSelect();
     }
 
-    onSelect(restaurant){
-      this.parentMessage = restaurant;
-      this.status = 1;
-    }
+  onSelect(){
+    var request = {
+      query: "restaurants near " + this.searchValue
+  };
 
-    goBack(){
-      this.status = 0;
+  var restaurant = this.restaurant;
+  var container = document.getElementById('details') as HTMLDivElement;
+  var service = new google.maps.places.PlacesService(container);
+  
+  service.textSearch(request, callback);
+  
+  function callback(results, status) {
+      if (status == google.maps.places.PlacesServiceStatus.OK) {
+        for (var i = 0; i < results.length; i++) {
+          if (results[i].name == restaurant){
+            var image = '<img src="' + results[i].photos[0].getUrl({maxWidth: 400, maxHeight: 400}) + '" class="card-img-top">'
+            container.innerHTML += image + '<h5 class = "card-title">' +  results[i].name + '</h5> <p class="card-text"><strong>' + results[i].rating + ' / 5</strong></p> <p class= "card-text">' + results[i].formatted_address + '</p>';
+            
+            }
+          }
+        }
+      }
     }
-}
+  }
+
+
